@@ -26,6 +26,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'react-rails', '~> 1.7', '>= 1.7.1'
 # Use RSpec as the testing framework
 gem 'rspec', '~> 3.5'
+# Use Bootstrap as a start for CSS
+gem 'bootstrap-sass', '~> 3.3', '>= 3.3.6'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
