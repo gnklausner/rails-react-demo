@@ -32,7 +32,6 @@
           type: 'file'
           name: 'csv'
           className: 'form-control'
-          placeholder: 'Choose file...'
           onChange: @handleChange
         React.DOM.button
           type: 'button'
@@ -42,4 +41,5 @@
           onClick: @uploadFile
           'Upload'
 
-# Thanks to mike123 for uploader idea: http://stackoverflow.com/questions/28750489/upload-file-component-with-reactjs
+# Thanks to mike123 for uploader idea
+# http://stackoverflow.com/questions/28750489/upload-file-component-with-reactjs
