@@ -4,13 +4,11 @@
   getDefaultProps: ->
     contacts: []
   addContacts: (new_contacts)->
-    contacts = @state.contacts.slice()
-    contacts = contacts.concat new_contacts
+    contacts = React.addons.update(@state.contacts, { $push: new_contacts })
     @setState contacts: contacts
   deleteContact: (contact)->
-    contacts = @state.contacts.slice()
-    index = contacts.indexOf contact
-    contacts.splice index, 1
+    index = @state.contacts.indexOf contact
+    contacts = React.addons.update(@state.contacts, { $splice: [[index, 1]] })
     @replaceState contacts: contacts
   render: ->
     React.DOM.div
