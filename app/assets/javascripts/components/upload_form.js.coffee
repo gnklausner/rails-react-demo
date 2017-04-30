@@ -5,7 +5,7 @@
     fd = new FormData
     fd.append 'contacts', @refs.csv.files[0]
     $.ajax
-      url: 'http://localhost:3000/contacts'
+      url: '/contacts'
       data: fd
       processData: false
       contentType: false
