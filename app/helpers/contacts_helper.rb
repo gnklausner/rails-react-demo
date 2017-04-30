@@ -1,6 +1,6 @@
 module ContactsHelper
     def normalize_phone_number(phone_number)
-      stripped_phone_number = phone_number.tr('().\- ', '')
+      stripped_phone_number = phone_number.tr('+().\- ', '')
       split_phone_number = stripped_phone_number.split('x')
       if split_phone_number[0].length > 10 # Split at the country code
         split_phone_number[0].insert(-11, '-')

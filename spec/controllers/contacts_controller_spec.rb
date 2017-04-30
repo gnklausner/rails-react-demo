@@ -13,8 +13,9 @@ RSpec.describe ContactsController do
     end
 
     it 'should return a 422 from a broken csv.' do
+      contact_count = Contact.all.size
       post :create, :contacts => { :csv => broken_file }
-
+      expect(Contact.all.size).to eq contact_count
       expect(response.status).to eq 422
     end
 
