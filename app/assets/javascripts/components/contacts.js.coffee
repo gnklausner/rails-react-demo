@@ -3,12 +3,18 @@
     contacts: @props.data
   getDefaultProps: ->
     contacts: []
+  addContacts: (new_contacts)->
+    contacts = @state.contacts.slice()
+    contacts = contacts.concat new_contacts
+    @setState contacts: contacts
   render: ->
     React.DOM.div
       className: 'contacts'
       React.DOM.h2
         className: 'title'
         'Contacts'
+      React.createElement UploadForm, handleNewContacts: @addContacts
+      React.DOM.hr null
       React.DOM.table
         className: 'table table-bordered'
         React.DOM.thead null,

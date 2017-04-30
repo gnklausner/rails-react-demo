@@ -8,7 +8,7 @@ class ContactsController < ApplicationController
   end
 
   def create
-    uploaded_io = contacts_params[:csv]
+    uploaded_io = contacts_csv
     File.open(Rails.root.join('public', 'uploads', 'contacts.csv'), 'wb') do |file|
       file.write(uploaded_io.read)
     end
@@ -39,7 +39,7 @@ class ContactsController < ApplicationController
   end
 
   private
-    def contacts_params
-      params.require(:contacts).permit(:csv)
+    def contacts_csv
+      params.require(:contacts)
     end
 end
