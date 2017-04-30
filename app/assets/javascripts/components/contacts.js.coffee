@@ -7,6 +7,11 @@
     contacts = @state.contacts.slice()
     contacts = contacts.concat new_contacts
     @setState contacts: contacts
+  deleteContact: (contact)->
+    contacts = @state.contacts.slice()
+    index = contacts.indexOf contact
+    contacts.splice index, 1
+    @replaceState contacts: contacts
   render: ->
     React.DOM.div
       className: 'contacts'
@@ -24,6 +29,10 @@
             React.DOM.th null, 'Email'
             React.DOM.th null, 'Phone Number'
             React.DOM.th null, 'Company Name'
+            React.DOM.th null, 'Delete'
         React.DOM.tbody null,
           for contact in @state.contacts
-            React.createElement Contact, key: contact.id, contact: contact
+            React.createElement Contact,
+              key: contact.id,
+              contact: contact,
+              handleDeleteContact: @deleteContact

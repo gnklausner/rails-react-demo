@@ -31,4 +31,15 @@ RSpec.describe ContactsController do
       end
     end
   end
+
+  describe '#Destroy' do
+    it 'should delete a contact.' do
+      contact = Contact.new(:first_name => 'delete', :last_name => 'me', :email_address => 'delete@me.com', :phone_number => '540-555-1234', :company_name => 'Delete U.S.')
+      contact.save
+
+      expect {
+        delete :destroy, :id => contact.id
+      }.to change(Contact, :count).by(-1)
+    end
+  end
 end
