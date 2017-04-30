@@ -1,6 +1,7 @@
 @UploadForm = React.createClass
   getInitialState: ->
     csv: null
+
   uploadFile: (e) ->
     fd = new FormData
     fd.append 'contacts', @refs.csv.files[0]
@@ -16,10 +17,13 @@
         return
     e.preventDefault()
     return
+
   handleChange: ->
     @setState "csv": @refs.csv.files[0]
+
   valid: ->
     @state.csv
+
   render: ->
     React.DOM.form
       ref: 'uploadForm'

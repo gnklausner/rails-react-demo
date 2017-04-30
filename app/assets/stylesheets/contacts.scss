@@ -2,6 +2,34 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.selectable {
-  cursor: pointer;
+.table > thead > tr > th {
+  vertical-align: text-top;
+  text-align: center;
+  
+  &.selectable {
+    cursor: pointer;
+  }
+
+  &:nth-child(1), &:nth-child(2) {
+    width: 16%;
+  }
+
+  &:nth-child(3), &:nth-child(5) {
+    width: 24%;
+  }
+
+  &:nth-child(4) {
+    width: 20%;
+  }
+}
+
+body > div > div > form {
+  float: right;
+}
+
+body > div > div {
+  padding: 20px;
+  > h2 {
+    display: inline;
+  }
 }

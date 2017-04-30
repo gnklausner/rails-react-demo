@@ -1,5 +1,8 @@
 @Contacts = React.createClass
   getInitialState: ->
+    # contacts is the model for the table and is modified directly.
+    # We maintain contacts_copy so we can get back contacts
+    # that were filtered out.
     contacts: @props.data
     contacts_copy: @props.data
     sort_ascending_map:
@@ -20,7 +23,10 @@
 
   addContacts: (new_contacts)->
     contacts = React.addons.update(@state.contacts, { $push: new_contacts })
-    contacts_copy = React.addons.update(@state.contacts_copy, { $push: new_contacts })
+    contacts_copy = React.addons.update(
+      @state.contacts_copy
+      { $push: new_contacts }
+    )
     @setState
       contacts: contacts
       contacts_copy: contacts_copy
@@ -29,23 +35,26 @@
     index = @state.contacts.indexOf contact
     contacts = React.addons.update(@state.contacts, { $splice: [[index, 1]] })
     index_copy = @state.contacts_copy.indexOf contact
-    contacts_copy = React.addons.update(@state.contacts_copy, { $splice: [[index_copy, 1]] })
+    contacts_copy = React.addons.update(
+      @state.contacts_copy
+      { $splice: [[index_copy, 1]] }
+    )
     @setState
       contacts: contacts
       contacts_copy: contacts_copy
 
-  sortContacts: (sort_attribute)->
-    sort_multiplier = if @state.sort_ascending_map[sort_attribute] then 1 else -1
+  sortContacts: (property)->
+    sort_multiplier = if @state.sort_ascending_map[property] then 1 else -1
     compare_function = (a,b)->
-      if a[sort_attribute] < b[sort_attribute]
+      if a[property] < b[property]
         return -1 * sort_multiplier
-      else if a[sort_attribute] > b[sort_attribute]
+      else if a[property] > b[property]
         return 1 * sort_multiplier
       else
         return 0
     contacts = @state.contacts.sort compare_function
     contacts_copy = @state.contacts_copy.sort compare_function
-    @state.sort_ascending_map[sort_attribute] = !@state.sort_ascending_map[sort_attribute]
+    @state.sort_ascending_map[property] = !@state.sort_ascending_map[property]
     @setState
       contacts: contacts
       contacts_copy: contacts_copy
@@ -54,17 +63,20 @@
     @state.filter_map[filter_attribute] = filter_string
     filtered_contacts = @state.contacts_copy
     for attribute, filter of @state.filter_map
-      filtered_contacts = filtered_contacts
-        .filter (contact) -> contact[attribute].toLowerCase().includes(filter.toLowerCase())
+      filtered_contacts = filtered_contacts.filter(
+        (contact) -> contact[attribute].toLowerCase().includes(
+          filter.toLowerCase()
+        )
+      )
     @setState contacts: filtered_contacts
 
   render: ->
     React.DOM.div
       className: 'contacts'
+      React.createElement UploadForm, handleNewContacts: @addContacts
       React.DOM.h2
         className: 'title'
         'Contacts'
-      React.createElement UploadForm, handleNewContacts: @addContacts
       React.DOM.hr null
       React.DOM.table
         className: 'table table-bordered'
