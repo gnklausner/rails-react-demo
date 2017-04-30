@@ -33,7 +33,7 @@ class ContactsController < ApplicationController
         contacts_array.each(&:save!)
       end
       render :json => contacts_array
-    rescue ActiveRecord::RecordInvalid, ActiveRecord::UnknownAttributeError => error
+    rescue ActiveRecord::RecordInvalid, ActiveRecord::UnknownAttributeError, NoMethodError => error
       render text: "#{error}", status: :unprocessable_entity
     end
   end
